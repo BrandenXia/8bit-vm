@@ -10,23 +10,35 @@
     count; \
 })
 
+#define str_to_enum(str, enum, prefix) \
+    if (strcmp(str, #enum) == 0) return prefix ## _ ## enum
+
+#define str_to_enum_inst(str, enum) \
+    str_to_enum(str, enum, INST)
+
+#define str_to_enum_comp(str, enum) \
+    str_to_enum(str, enum, COMPUTE)
+
+#define str_to_enum_jump(str, enum) \
+    str_to_enum(str, enum, JUMP)
+
 static inline inst_t verb_to_inst(char *verb) {
-    if (strcmp(verb, "IMMEDIATE") == 0) return INST_IMMEDIATE;
-    if (strcmp(verb, "COMPUTE") == 0) return INST_COMPUTE;
-    if (strcmp(verb, "COPY") == 0) return INST_COPY;
-    if (strcmp(verb, "JUMP") == 0) return INST_JUMP;
+    str_to_enum_inst(verb, IMMEDIATE);
+    str_to_enum_inst(verb, COMPUTE);
+    str_to_enum_inst(verb, COPY);
+    str_to_enum_inst(verb, JUMP);
     return -1;
 }
 
 static inline compute_op_t compute_op_from_string(char *op) {
-    if (strcmp(op, "OR") == 0) return COMPUTE_OR;
-    if (strcmp(op, "NAND") == 0) return COMPUTE_NAND;
-    if (strcmp(op, "NOR") == 0) return COMPUTE_NOR;
-    if (strcmp(op, "AND") == 0) return COMPUTE_AND;
-    if (strcmp(op, "ADD") == 0) return COMPUTE_ADD;
-    if (strcmp(op, "SUB") == 0) return COMPUTE_SUB;
-    if (strcmp(op, "MUL") == 0) return COMPUTE_MUL;
-    if (strcmp(op, "DIV") == 0) return COMPUTE_DIV;
+    str_to_enum_comp(op, OR);
+    str_to_enum_comp(op, NAND);
+    str_to_enum_comp(op, NOR);
+    str_to_enum_comp(op, AND);
+    str_to_enum_comp(op, ADD);
+    str_to_enum_comp(op, SUB);
+    str_to_enum_comp(op, MUL);
+    str_to_enum_comp(op, DIV);
     return -1;
 }
 
@@ -40,14 +52,14 @@ static inline reg_id_t reg_id_from_string(char *reg) {
 }
 
 static inline jump_op_t jump_op_from_string(char *op) {
-    if (strcmp(op, "NEVER") == 0) return JUMP_NEVER;
-    if (strcmp(op, "ZERO") == 0) return JUMP_ZERO;
-    if (strcmp(op, "NEG") == 0) return JUMP_NEG;
-    if (strcmp(op, "NOT_POS") == 0) return JUMP_NOT_POS;
-    if (strcmp(op, "ALWAYS") == 0) return JUMP_ALWAYS;
-    if (strcmp(op, "NOT_ZERO") == 0) return JUMP_NOT_ZERO;
-    if (strcmp(op, "NOT_NEG") == 0) return JUMP_NOT_NEG;
-    if (strcmp(op, "POS") == 0) return JUMP_POS;
+    str_to_enum_jump(op, NEVER);
+    str_to_enum_jump(op, ZERO);
+    str_to_enum_jump(op, NEG);
+    str_to_enum_jump(op, NOT_POS);
+    str_to_enum_jump(op, ALWAYS);
+    str_to_enum_jump(op, NOT_ZERO);
+    str_to_enum_jump(op, NOT_NEG);
+    str_to_enum_jump(op, POS);
     return -1;
 }
 
