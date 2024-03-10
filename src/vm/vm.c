@@ -58,9 +58,7 @@ void vm_run(vm_t *vm) {
             case INST_JUMP: {
                 jump_op_t op = get_jump_op(opcode);
                 bool cond = jump(op, vm->reg[3]);
-                if (cond) {
-                    vm->pc = vm->mem.bytes + vm->reg[0];
-                }
+                if (cond) vm->pc = vm->mem.bytes + vm->reg[0] - 1;
                 break;
             }
         }
