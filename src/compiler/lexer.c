@@ -2,18 +2,18 @@
 #include <string.h>
 #include "compiler/lexer.h"
 
-#define count_char(source, c) ({ \
-    char *s = (char *)source; \
-    size_t i = 0; \
-    for (i = 0; s[i]; s[i] == c ? i++ : *s++); \
-    i; \
-})
+static inline size_t count_char(char *source, char c) {
+    char *s = (char *) source;
+    size_t i;
+    for (i = 0; s[i]; s[i] == c ? i++ : *s++);
+    return i;
+}
 
 ast_tokens_t lexer_tokenize(const char *source) {
     ast_token_t *tokens;
     unsigned int start, token_count;
 
-    int size = count_char(source, ' ') + count_char(source, '\n') * 2 + 1;
+    size_t size = count_char((char *) source, ' ') + count_char((char *) source, '\n') * 2 + 1;
     tokens = calloc(sizeof(ast_token_t), size);
     tokens[0].type = AST_VERB;
 

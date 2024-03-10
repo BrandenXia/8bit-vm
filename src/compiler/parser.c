@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include "compiler/parser.h"
 
-#define count_verbs(tokens) ({ \
-    unsigned int count = 0; \
-    for (unsigned int i = 0; i < tokens.len; i++) { \
-        if (tokens.tokens[i].type == AST_VERB) count++; \
-    } \
-    count; \
-})
+static inline unsigned int count_verbs(ast_tokens_t tokens) {
+    unsigned int count = 0;
+    for (unsigned int i = 0; i < tokens.len; i++) {
+        if (tokens.tokens[i].type == AST_VERB) count++;
+    }
+    return count;
+}
 
 #define str_to_enum(str, enum, prefix) \
     if (strcmp(str, #enum) == 0) return prefix ## _ ## enum

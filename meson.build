@@ -1,7 +1,7 @@
 project('8bit-vm', 'c',
     version : '0.1.0',
     license : 'MIT',
-    default_options : ['warning_level=3', 'werror=true', 'c_std=c11', 'build_type=debugoptimized']
+    default_options : ['warning_level=3', 'werror=true', 'c_std=c11', 'buildtype=debugoptimized']
 )
 
 inc = [include_directories('include')]

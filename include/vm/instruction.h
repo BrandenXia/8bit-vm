@@ -6,32 +6,32 @@
 #include "vm/vm.h"
 
 typedef enum {
-    INST_IMMEDIATE = 0b00,
-    INST_COMPUTE = 0b01,
-    INST_COPY = 0b10,
-    INST_JUMP = 0b11
+    INST_IMMEDIATE = 0,
+    INST_COMPUTE = 1,
+    INST_COPY = 2,
+    INST_JUMP = 3
 } inst_t;
 
 typedef enum {
-    COMPUTE_OR = 0b000,
-    COMPUTE_NAND = 0b001,
-    COMPUTE_NOR = 0b010,
-    COMPUTE_AND = 0b011,
-    COMPUTE_ADD = 0b100,
-    COMPUTE_SUB = 0b101,
-    COMPUTE_MUL = 0b110,
-    COMPUTE_DIV = 0b111
+    COMPUTE_OR = 0,
+    COMPUTE_NAND = 1,
+    COMPUTE_NOR = 2,
+    COMPUTE_AND = 3,
+    COMPUTE_ADD = 4,
+    COMPUTE_SUB = 5,
+    COMPUTE_MUL = 6,
+    COMPUTE_DIV = 7
 } compute_op_t;
 
 typedef enum {
-    JUMP_NEVER = 0b000,
-    JUMP_ZERO = 0b001,
-    JUMP_NEG = 0b010,
-    JUMP_NOT_POS = 0b011,
-    JUMP_ALWAYS = 0b100,
-    JUMP_NOT_ZERO = 0b101,
-    JUMP_NOT_NEG = 0b110,
-    JUMP_POS = 0b111
+    JUMP_NEVER = 0,
+    JUMP_ZERO = 1,
+    JUMP_NEG = 2,
+    JUMP_NOT_POS = 3,
+    JUMP_ALWAYS = 4,
+    JUMP_NOT_ZERO = 5,
+    JUMP_NOT_NEG = 6,
+    JUMP_POS = 7
 } jump_op_t;
 
 typedef uint8_t opcode_t;

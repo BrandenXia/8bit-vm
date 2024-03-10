@@ -20,12 +20,12 @@ typedef struct {
 } vm_t;
 
 typedef enum {
-    REG_0 = 0b000,
-    REG_1 = 0b001,
-    REG_2 = 0b010,
-    REG_3 = 0b011,
-    REG_4 = 0b100,
-    IO = 0b101
+    REG_0 = 0,
+    REG_1 = 1,
+    REG_2 = 2,
+    REG_3 = 3,
+    REG_4 = 4,
+    IO = 5
 } reg_id_t;
 
 vm_t *vm_create(size_t mem_size);
