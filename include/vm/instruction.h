@@ -1,6 +1,7 @@
 #ifndef INC_8BIT_VM_OP_H
 #define INC_8BIT_VM_OP_H
 
+#include <stdbool.h>
 #include <stdint.h>
 #include "vm/vm.h"
 

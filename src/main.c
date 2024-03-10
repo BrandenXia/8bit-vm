@@ -1,10 +1,10 @@
 #include "vm/vm.h"
+#include "compiler/compiler.h"
 
 int main(void) {
+    const char *source = "IMMEDIATE 10\nCOPY 0 IO\n";
+    mem_t mem = compile(source);
     vm_t *vm = vm_create(0x800);
-    vm->mem[0] = 0b10101000;
-    vm->mem[1] = 0b10000101;
+    vm_load(vm, mem);
     vm_run(vm);
-    vm_destroy(vm);
-    return 0;
 }

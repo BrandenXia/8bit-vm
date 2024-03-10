@@ -9,7 +9,8 @@ inc = [include_directories('include')]
 subdir('src')
 
 dep_libs = [
-    vm_lib
+    vm_lib,
+    compiler_lib,
 ]
 
 executable('vm',

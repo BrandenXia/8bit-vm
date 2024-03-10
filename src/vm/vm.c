@@ -2,22 +2,22 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 #include "vm/vm.h"
 #include "vm/instruction.h"
 
 vm_t *vm_create(size_t mem_size) {
     assert(mem_size > 0);
-    assert(mem_size % 8 == 0);
 
     vm_t *vm = malloc(sizeof(vm_t));
-    vm->mem = malloc(mem_size);
-    vm->mem_size = mem_size;
-    vm->pc = vm->mem;
+    vm->mem.bytes = calloc(mem_size, sizeof(byte_t));
+    vm->mem.size = mem_size;
+    vm->pc = vm->mem.bytes;
     return vm;
 }
 
 void vm_run(vm_t *vm) {
-    while (vm->pc < vm->mem + vm->mem_size) {
+    for (;vm->pc < vm->mem.bytes + vm->mem.size; vm->pc++) {
         opcode_t opcode = *vm->pc;
         inst_t inst = get_inst(opcode);
         switch (inst) {
@@ -59,16 +59,25 @@ void vm_run(vm_t *vm) {
                 jump_op_t op = get_jump_op(opcode);
                 bool cond = jump(op, vm->reg[3]);
                 if (cond) {
-                    vm->pc = vm->mem + vm->reg[0];
+                    vm->pc = vm->mem.bytes + vm->reg[0];
                 }
                 break;
             }
         }
-        vm->pc++;
     }
 }
 
+void vm_load(vm_t *vm, mem_t mem) {
+    if (vm->mem.size < mem.size) {
+        free(vm->mem.bytes);
+        vm->mem.bytes = calloc(mem.size, sizeof(byte_t));
+        vm->mem.size = mem.size;
+    }
+
+    memcpy(vm->mem.bytes, mem.bytes, mem.size);
+}
+
 void vm_destroy(vm_t *vm) {
-    free((void *) vm->mem);
+    free(vm->mem.bytes);
     free(vm);
 }
