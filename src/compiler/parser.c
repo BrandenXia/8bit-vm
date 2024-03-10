@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "compiler/parser.h"
 
 #define count_verbs(tokens) ({ \
@@ -46,7 +47,10 @@ static inline reg_id_t reg_id_from_string(char *reg) {
     if (strcmp(reg, "IO") == 0) return IO;
 
     int id = (reg_id_t) strtol(reg, NULL, 10);
-    if (id < 0 || id > 4) exit(1);
+    if (id < 0 || id > 4) {
+        fprintf(stderr, "Invalid register id: %d\n", id);
+        exit(1);
+    }
 
     return id;
 }
